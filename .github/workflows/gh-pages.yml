@@ -41,6 +41,7 @@ jobs:
         run: |
           git checkout -b gh-pages
           git rm -rf .
+          mkdir dist  # Create directory for downloaded files
           cp -r downloaded_files/* .
           git add .
           git commit -m "Push build files"
