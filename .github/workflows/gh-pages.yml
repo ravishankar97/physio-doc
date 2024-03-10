@@ -1,31 +1,44 @@
 name: Build Angular Project
-
 on: push
-
 jobs:
   build-and-push:
-    name: Build project and deploy to gh-pages
+    name: Build project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Install NPM dependencies
         run: npm install
       - name: Build Project assets
-        run: npm run build:prod
+        run: npm run build:prod  # Assuming your build command is 'npm run build:prod'
       - name: Configure Git
         run: |
           git config --global user.name "Github Actions"
           git config --global user.email "actions@github.com"
-      - name: switch branch
-        run: git checkout -b gh-pages
-      - name: Push build files to gh-pages (uses actions/checkout)
-        uses: actions/checkout@v3  # Checkout the gh-pages branch
+      - name: Create Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-files
+          path: dist/physio-doc  # Adjust the path if your build output is in a different location
+
+  deploy-to-gh-pages:  # Renamed for clarity
+    needs: build-and-push  # This job depends on the build-and-push job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Artifact (check for successful build)
+        uses: actions/download-artifact@v3
+        with:
+          name: built-files
+          path: downloaded_files
+      - name: Push build files to gh-pages (replace with your deployment steps)
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      - name: Deploy built files (uses shell commands)
-        run: |  # Separate step for deployment commands
-          git rm -rf *
-          cp -r dist/physio-doc/* .  # Copy build files to root of gh-pages branch
-          git add .
+        run: |
+          git checkout -b gh-pages
+          git rm -r *  # Remove existing files (optional)
+          mkdir dist  # Create directory for downloaded files
+          cp -r downloaded_files/* dist/
+          git add dist/
           git commit -m "Push build files"
           git push origin gh-pages
