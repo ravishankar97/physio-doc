@@ -11,3 +11,15 @@ jobs:
         run: npm install
       - name: Build Project assets
         run: npm run build:prod
+      - name: Configure Git
+        run: |
+          git config --global user.name "Github Actions"
+          git config --global user.email "actions@github.com"
+      - name: Add Built files
+        run: git add .
+      - name: Commit Changes
+        run: git commit -m "Push built files"
+      - name: Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: git push origin gh-pages
