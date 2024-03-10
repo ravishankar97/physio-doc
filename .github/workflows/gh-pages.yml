@@ -39,8 +39,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git checkout -b gh-pages
-          git rm -rf
-          mkdir dist
+
+          mkdir temp_files  # Create temporary directory
+          mv downloaded_files temp_files/  # Move downloaded files aside
+          git rm -rf *  # Remove all remaining files
+          mv temp_files/downloaded_files
+          # git rm -r *
+          # mkdir dist
           cp -r downloaded_files/* dist/
           git add dist/ -f
           git commit -m "Push build files"
