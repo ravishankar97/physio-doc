@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git checkout gh-pages
+          git checkout -b gh-pages
           git rm -rf .
           mkdir dist  # Create directory for downloaded files
           cp -r downloaded_files/* .
