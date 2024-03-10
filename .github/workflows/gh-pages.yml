@@ -21,22 +21,22 @@ jobs:
           name: built-files
           path: dist/physio-doc
 jobs:
-    deploy-to-gh-pages:
-      needs: build-and-push
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - name: Download Artifact
-          uses: actions/download-artifact@v3
-          with:
-            name: built-files
-            path: downloaded_files
-        - name: Push build files to gh-pages
-          env:
-            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          run: |
-            git checkout -b gh-pages
-            cp -r downloaded_files/* gh-pages/
-            git add gh-pages/
-            git commit -m "Push build files"
-            git push origin gh-pages
+  deploy-to-gh-pages:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: built-files
+          path: downloaded_files
+      - name: Push build files to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git checkout -b gh-pages
+          cp -r downloaded_files/* gh-pages/
+          git add gh-pages/
+          git commit -m "Push build files"
+          git push origin gh-pages
