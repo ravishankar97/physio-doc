@@ -19,7 +19,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: built-files
-          path: dist
+          path: dist/physio-doc
       - name: Move to gh-pages branch
         run: git checkout -b gh-pages
       - name: Add Built files
