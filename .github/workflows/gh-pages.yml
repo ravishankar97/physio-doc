@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git branch -D origin/gh-pages
+          git rev-parse --verify --quiet origin/gh-pages && git branch -D origin/gh-pages"
           git checkout -b gh-pages
           git rm -rf .
           cp -r downloaded_files/* .
