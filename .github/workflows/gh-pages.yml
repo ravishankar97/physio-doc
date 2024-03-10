@@ -20,7 +20,7 @@ jobs:
         with:
           name: built-files
           path: dist/physio-doc
-  jobs:
+jobs:
     deploy-to-gh-pages:
       needs: build-and-push
       runs-on: ubuntu-latest
