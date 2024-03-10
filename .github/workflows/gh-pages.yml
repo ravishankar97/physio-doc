@@ -19,13 +19,12 @@ jobs:
       - name: switch branch
         run: git checkout -b gh-pages
       - name: Push build files to gh-pages (uses actions/checkout)
-        uses: actions/checkout@v3  # Checkout the gh-pages branch  
-        with:
-          ref: gh-pages  # Specify the target branch
+        uses: actions/checkout@v3  # Checkout the gh-pages branch
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Deploy built files (uses shell commands)
         run: |  # Separate step for deployment commands
+          git rm -rf *
           cp -r dist/physio-doc/* .  # Copy build files to root of gh-pages branch
           git add .
           git commit -m "Push build files"
