@@ -15,38 +15,15 @@ jobs:
         run: |
           git config --global user.name "Github Actions"
           git config --global user.email "actions@github.com"
-      - name: Create Artifact
-        uses: actions/upload-artifact@v3
+       - name: Push build files to gh-pages
+        uses: actions/checkout@v3
         with:
-          name: built-files
-          path: dist/physio-doc
-  deploy-to-gh-pages:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configure Git
-        run: |
-          git config --global user.name "Github Actions"
-          git config --global user.email "actions@github.com"
-      - uses: actions/checkout@v3
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: built-files
-          path: downloaded_files
-      - name: Push build files to gh-pages
+          ref: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git checkout -b gh-pages
-
-          mkdir temp_files  # Create temporary directory
-          mv downloaded_files temp_files/  # Move downloaded files aside
-          git rm -rf *  # Remove all remaining files
-          mv temp_files/downloaded_files
-          # git rm -r *
-          # mkdir dist
-          cp -r downloaded_files/* dist/
-          git add dist/ -f
+          git rm -rf *  # Remove existing files (optional, for clean deployments)
+          cp -r dist/physio-doc/* .  # Copy build files to root of gh-pages branch
+          git add .
           git commit -m "Push build files"
           git push origin gh-pages
