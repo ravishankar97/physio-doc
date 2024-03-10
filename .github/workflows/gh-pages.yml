@@ -24,7 +24,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Deploy built files (uses shell commands)
         run: |  # Separate step for deployment commands
-          git rm -rf *  # Remove existing files (optional, for clean deployments)
           cp -r dist/physio-doc/* .  # Copy build files to root of gh-pages branch
           git add .
           git commit -m "Push build files"
