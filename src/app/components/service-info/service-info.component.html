@@ -1,0 +1,15 @@
+<div class="pd-service-info-container" >
+
+   
+    <div class="mat-cards">
+        <mat-card *ngFor="let service of allServices">
+            <mat-card-header>{{ service.header }} </mat-card-header>
+            <mat-card-content> {{ service.description }}</mat-card-content>
+            <mat-card-actions>
+                <a  [routerLink]="'/'" class="appointment-link" fragment="bookAppointment" [queryParams]="{serviceId:service.serviceId}">Book Service</a>
+            </mat-card-actions>
+    
+        </mat-card>
+    </div>
+
+</div>
