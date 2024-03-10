@@ -21,7 +21,7 @@ jobs:
           name: built-files
           path: dist
       - name: Add Built files
-        run: git add dist/
+        run: git add dist/ -f
       - name: Commit Changes
         run: git commit -m "Push built files"
       - name: Push Changes
