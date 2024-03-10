@@ -35,12 +35,11 @@ jobs:
         run: |
           git config --global user.name "Github Actions"
           git config --global user.email "actions@github.com"
-      - name: Delete old gh-pages branch
-        run: git branch -d gh-pages
       - name: Push build files to gh-pages (replace with your deployment steps)
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          git branch -d gh-pages
           git checkout -b gh-pages
           git rm -rf .
           cp -r downloaded_files/* .
