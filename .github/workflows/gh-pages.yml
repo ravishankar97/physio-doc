@@ -39,11 +39,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git push origin -d gh-pages
+          git push origin --delete gh-pages
           git checkout -b gh-pages
           git rm -rf .
           cp -r downloaded_files/* .
-          git rm -r downloaded_files
           git add .
           git commit -m "Push build files"
           git push origin gh-pages
