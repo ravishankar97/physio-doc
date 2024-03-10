@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git checkout -b gh-pages
-          git rm -r *
+          git rm -rf
           mkdir dist
           cp -r downloaded_files/* dist/
           git add dist/ -f
