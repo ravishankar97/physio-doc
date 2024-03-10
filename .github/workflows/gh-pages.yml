@@ -40,8 +40,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git checkout -b gh-pages
-          git rm -rf .
           git pull
+          git rm -rf .
           cp -r downloaded_files/* .
           git add .
           git commit -m "Push build files"
