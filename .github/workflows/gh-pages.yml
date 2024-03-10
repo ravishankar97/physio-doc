@@ -1,7 +1,7 @@
 name: Build Angular Project
 on: push
 jobs:
-  build-project:
+  build-and-push:
     name: Build project
     runs-on: ubuntu-latest
     steps:
@@ -20,13 +20,23 @@ jobs:
         with:
           name: built-files
           path: dist/physio-doc
-      - name: Move to gh-pages branch
-        run: git checkout -b gh-pages
-      - name: Add Built files
-        run: git add dist/ -f
-      - name: Commit Changes
-        run: git commit -m "Push built files"
-      - name: Push Changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: git push origin gh-pages
+  jobs:
+    deploy-to-gh-pages:
+      needs: build-and-push
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: Download Artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: built-files
+            path: downloaded_files
+        - name: Push build files to gh-pages
+          env:
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          run: |
+            git checkout -b gh-pages
+            cp -r downloaded_files/* gh-pages/
+            git add gh-pages/
+            git commit -m "Push build files"
+            git push origin gh-pages
