@@ -20,6 +20,8 @@ jobs:
         with:
           name: built-files
           path: dist
+      - name: Move to gh-pages branch
+        run: git checkout -b gh-pages
       - name: Add Built files
         run: git add dist/ -f
       - name: Commit Changes
@@ -27,4 +29,4 @@ jobs:
       - name: Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: git push origin gh-pages
+        run: git push -u origin gh-pages
