@@ -1,5 +1,7 @@
 name: Build Angular Project
+
 on: push
+
 jobs:
   build-and-push:
     name: Build project and deploy to gh-pages
@@ -14,15 +16,16 @@ jobs:
         run: |
           git config --global user.name "Github Actions"
           git config --global user.email "actions@github.com"
-      - name: Push build files to gh-pages  # Consolidated step for clarity
-        uses: actions/checkout@v3
+      - name: Push build files to gh-pages (uses actions/checkout)
+        uses: actions/checkout@v3  # Checkout the gh-pages branch
         with:
-          ref: gh-pages
+          ref: gh-pages  # Specify the target branch
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
+      - name: Deploy built files (uses shell commands)
+        run: |  # Separate step for deployment commands
           git rm -rf *  # Remove existing files (optional, for clean deployments)
-          cp -r dist/physio-doc/* .  # Copy build files to root of gh-pages
+          cp -r dist/physio-doc/* .  # Copy build files to root of gh-pages branch
           git add .
           git commit -m "Push build files"
           git push origin gh-pages
