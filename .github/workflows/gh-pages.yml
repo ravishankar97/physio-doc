@@ -40,8 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git checkout -b gh-pages
-          mkdir dist  # Create directory for downloaded files
-          cp -r downloaded_files/* dist/
+          git checkout -f HEAD~1 dist/
           git add dist/ -f
           git commit -m "Push build files"
-          git push origin gh-pages
+          git push origin HEAD:gh-pages
