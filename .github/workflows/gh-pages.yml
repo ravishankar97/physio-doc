@@ -39,10 +39,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git checkout --orphan gh-pages
+          git checkout gh-pages
           git rm -rf .
           mkdir dist  # Create directory for downloaded files
-          cp -r downloaded_files/* dist/
-          git add dist/ -f
+          cp -r downloaded_files/* .
+          git add .
           git commit -m "Push build files"
           git push origin gh-pages
