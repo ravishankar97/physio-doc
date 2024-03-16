@@ -1,48 +1,47 @@
-name: Build Angular Project
-on: push
-jobs:
-  build-and-push:
-    name: Build project
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install NPM dependencies
-        run: npm install
-      - name: Build Project assets
-        run: npm run build:prod  # Assuming your build command is 'npm run build:prod'
-      - name: Configure Git
-        run: |
-          git config --global user.name "Github Actions"
-          git config --global user.email "actions@github.com"
-      - name: Create Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: built-files
-          path: dist/physio-doc  # Adjust the path if your build output is in a different location
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
 
-  deploy-to-gh-pages:  # Renamed for clarity
-    needs: build-and-push  # This job depends on the build-and-push job
+on: push
+  # Runs on pushes targeting the default branch
+  # push:
+  #   branches: ["master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Download Artifact (check for successful build)
-        uses: actions/download-artifact@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install & Build
+        run: |
+          npm install
+          npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: built-files
-          path: downloaded_files
-      - name: Configure Git
-        run: |
-          git config --global user.name "Github Actions"
-          git config --global user.email "actions@github.com"
-      - name: Push build files to gh-pages (replace with your deployment steps)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          git rev-parse --verify --quiet origin/gh-pages && git branch -D origin/gh-pages
-          git checkout -b gh-pages
-          git rm -rf .
-          cp -r downloaded_files/* .
-          git add .
-          git commit -m "Push build files"
-          git push origin gh-pages
+          # Upload entire repository
+          path: './dist/physio-doc'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
