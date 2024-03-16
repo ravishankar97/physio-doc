@@ -1,5 +1,13 @@
 .pd-appointment-container {
     margin-block: 40px;
+    position: relative;
+    border-radius: 12px;
+    background: white;
+    padding-inline: 40px;
+    padding-block: 20px;
+    padding: 40px;
+    color: var(--color-primary);
+
     header {
         text-align: center;
     }
@@ -48,5 +56,20 @@
         
         
 
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -.5rem;
+        z-index: -1;
+        background:  linear-gradient(
+            45deg,
+            #12c2e9,
+            #c471ed,
+            var(--color-primary)
+            );
+        border-radius: inherit;
+        
     }
 }

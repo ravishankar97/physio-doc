@@ -1,22 +1,29 @@
 .pd-service-info-container {
 
     .mat-cards {
-        display: grid;
-        grid-gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5rem;
     
         .mat-mdc-card {
-            
+            // border-radius: ;
             border-radius: 12px;
+            max-width: 500px;
+            position: relative;
 
             .mat-mdc-card-header {
                 padding: 16px;
                 text-transform: uppercase;
-                background-color: darkslateblue;
-                color: white;
+ 
                 border-radius: inherit;
                 border-bottom-left-radius: unset;
                 border-bottom-right-radius: unset;
+                justify-content: center;
+
+                .mat-mdc-card-title {
+                    text-transform: uppercase;
+                }
                 
             }
 
@@ -24,15 +31,16 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 font-size: 18px;
-                
+ 
+                flex: 1;
+                text-align: justify;
             }
 
             .mdc-card__actions {
                 margin-top: auto;
                 margin-inline: auto;
                 padding-block: 16px;
-                background-color: darkslateblue;
-                color: white;
+ 
                 width: 100%;
                 border-bottom-left-radius: inherit;
                 border-bottom-right-radius: inherit;
@@ -40,9 +48,24 @@
                 .appointment-link {
                     font-size: 14px;
                     text-transform: uppercase;
-                    color: white;
+     
 
                 }
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: -.5rem;
+                z-index: -1;
+                background:  linear-gradient(
+                    45deg,
+                    #12c2e9,
+                    #c471ed,
+                    var(--color-primary)
+                    );
+                border-radius: inherit;
+                
             }
         }
     }

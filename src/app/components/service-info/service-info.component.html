@@ -3,10 +3,12 @@
    
     <div class="mat-cards">
         <mat-card *ngFor="let service of allServices">
-            <mat-card-header>{{ service.header }} </mat-card-header>
+            <mat-card-header>
+                <mat-card-title>{{ service.header }}</mat-card-title>
+            </mat-card-header>
             <mat-card-content> {{ service.description }}</mat-card-content>
             <mat-card-actions>
-                <a  [routerLink]="'/'" class="appointment-link" fragment="bookAppointment" [queryParams]="{serviceId:service.serviceId}">Book Service</a>
+                <a  [routerLink]="'/'" class="appointment-link" fragment="bookAppointment" [queryParams]="{serviceId:service.serviceId}">Book Appointment</a>
             </mat-card-actions>
     
         </mat-card>
