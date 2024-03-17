@@ -47,7 +47,7 @@
 
         <div class="form-actions">
             <button mat-raised-button class="mat-raised-button book-apt" color="primary" [disabled]="appointmentForm.invalid" >Book Now</button>
-            <button mat-raised-button class="mat-raised-button book-apt" color="secondary" (click)="appointmentForm.reset()">Clear All</button>
+            <button mat-raised-button class="mat-raised-button book-apt" color="secondary" (click)="appointmentForm.reset({serviceReqd: '0'})">Clear All</button>
 
         </div>
 

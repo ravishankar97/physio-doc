@@ -1,4 +1,16 @@
 .main-footer {
-    height: 64px;
-    background-color: wheat;
+    height: 250px;
+    background-color: var(--color-primary);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .contact-container {
+        display: flex;
+        label::after {
+            content: ': ';
+            padding-right: 4px;
+        }
+    }
 }
