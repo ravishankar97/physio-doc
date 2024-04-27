@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,8 +8,10 @@ import {MatSelectModule} from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE, NativeDateModule } from '@angular/material/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CustomDateAdapter } from 'src/utilities/custom-date-adapter.service';
+import { MY_DATE_FORMATS } from 'src/app/app.constants';
 
 
 
@@ -30,11 +32,16 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
     MatNativeDateModule,
     RouterModule
   ],
-  // providers: [provideNativeDateAdapter()],
+  providers: [
+    {provide: DateAdapter, useClass: CustomDateAdapter},
+  ],
   templateUrl: './pd-appointment.component.html',
   styleUrls: ['./pd-appointment.component.scss']
 })
 export class PdAppointmentComponent implements OnInit, OnDestroy {
+
+  @ViewChild(FormGroupDirective)
+  private formDir!: FormGroupDirective
 
   constructor(
     private readonly routerModule: ActivatedRoute
@@ -57,12 +64,11 @@ export class PdAppointmentComponent implements OnInit, OnDestroy {
   }
 
   public appointmentForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
-    email: new FormControl(''),
+    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    phone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{10}')]),
     serviceReqd: new FormControl('0', this.customValidatorForSelect('0')),
-    doA: new FormControl('', Validators.required),
-    message: new FormControl('')
+    doA: new FormControl({value: '', disabled: false}, Validators.required),
+    message: new FormControl('', Validators.maxLength(500))
   })
 
   private subscription = new Subscription();
@@ -92,6 +98,20 @@ export class PdAppointmentComponent implements OnInit, OnDestroy {
     }))
 
     
+  }
+
+  public myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0;
+  };
+
+  public onFormSubmit(_event:any){
+    console.log(this.appointmentForm.getRawValue());
+  }
+
+  onFormReset(event: Event){
+    event.preventDefault();
+    this.formDir.resetForm({serviceReqd: '0'})
   }
 
   ngOnDestroy() {

@@ -16,16 +16,6 @@
         grid-template-columns: 1fr 1fr;
         gap: 16px;
 
-
-        :nth-child(2n + 2) {
-            grid-column: 1 / 2;
-        }
-
-        :nth-child(2n + 1) {
-            grid-column: 2 / 3;
-        }
-
-        .pd-form-field:first-of-type,
         .message-field
         {
             grid-column: 1 / 3;

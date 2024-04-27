@@ -98,6 +98,10 @@ body { margin: 0;
         .mdc-text-field--filled:not(.mdc-text-field--disabled) {
             background-color: white;
         }
+
+        .mdc-text-field--invalid {
+          border: 2px solid red;
+        }
     }
 
 }
