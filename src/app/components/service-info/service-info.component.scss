@@ -5,6 +5,8 @@
         flex-wrap: wrap;
         justify-content: center;
         gap: 5rem;
+        padding: 54px;
+        padding-top: unset;
     
         .mat-mdc-card {
             // border-radius: ;
@@ -45,12 +47,12 @@
                 border-bottom-left-radius: inherit;
                 border-bottom-right-radius: inherit;
                 justify-content: center;
-                .appointment-link {
-                    font-size: 14px;
-                    text-transform: uppercase;
+                // .appointment-link {
+                //     font-size: 14px;
+                //     text-transform: uppercase;
      
 
-                }
+                // }
             }
 
             &::before {

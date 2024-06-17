@@ -6,8 +6,6 @@
     align-items: center;
     padding-inline: 40px;
     font-size: 16px;
-    background-color: var(--color-primary);
-    color: white;
     white-space: nowrap;
     nav {
        margin-left: 1em;
@@ -18,7 +16,7 @@
     .appointment-link {
         text-decoration: none;
         padding-inline: 16px;
-        background-color: crimson;
+        background-color: #2D4D44;
         color: white;
         border-radius: 4px;
         padding-block: 8px;
@@ -52,7 +50,7 @@
         align-items: center;
         gap: 1rem;
         font-size: 24px;
-        color: white;
+        color: #2d4d44;
         cursor: pointer;
     }
 

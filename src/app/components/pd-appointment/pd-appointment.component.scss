@@ -2,11 +2,11 @@
     margin-block: 40px;
     position: relative;
     border-radius: 12px;
-    background: white;
     padding-inline: 40px;
     padding-block: 20px;
     padding: 40px;
     color: var(--color-primary);
+    border: 8px solid #2d4d44;
 
     header {
         text-align: center;
@@ -48,20 +48,20 @@
 
     }
 
-    &::before {
-        content: '';
-        position: absolute;
-        inset: -.3rem;
-        z-index: -1;
-        background:  linear-gradient(
-            45deg,
-            #12c2e9,
-            #c471ed,
-            var(--color-primary)
-            );
-        border-radius: inherit;
+    // &::before {
+    //     content: '';
+    //     position: absolute;
+    //     inset: -.3rem;
+    //     z-index: -1;
+    //     background:  linear-gradient(
+    //         45deg,
+    //         #12c2e9,
+    //         #c471ed,
+    //         var(--color-primary)
+    //         );
+    //     border-radius: inherit;
         
-    }
+    // }
 }
 
 //https://9elements.github.io/
