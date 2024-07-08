@@ -2,34 +2,37 @@
     <header>
         <p>Please explain your problem in concise manner. We'll reach out to you as soon as possible.</p>
     </header>
-    <form class="form-content" [formGroup]="appointmentForm">
+    
+    <form class="form-content" [formGroup]="appointmentForm" (reset)="onFormReset($event)" (ngSubmit)="onFormSubmit($event)">
         <mat-form-field class="pd-form-field">
             <input formControlName="name" matInput placeholder="Full Name">
             <mat-icon matPrefix >perm_identity</mat-icon>
         </mat-form-field>
 
         <mat-form-field class="pd-form-field">
-            <input formControlName="phone" type="number"  matInput placeholder="Phone Number">
+            <input formControlName="phone" type="number"  matInput placeholder="Mobile Number">
             <mat-icon matPrefix >phone</mat-icon>
         </mat-form-field>
 
 
-        <mat-form-field class="pd-form-field">
+        <!-- <mat-form-field class="pd-form-field">
             <input formControlName="email" type="email"  matInput placeholder="Email">
             <mat-icon matPrefix>mail</mat-icon>
-        </mat-form-field>
+        </mat-form-field> -->
 
         <mat-form-field class="pd-form-field">
             <mat-select formControlName="serviceReqd">
-                <mat-option value="0">--Select--</mat-option>
+                <mat-option value="0">--Select Treatment--</mat-option>
                 <mat-option *ngFor="let service of servicesOffered" [value]="service.code">
                     {{service.name }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="pd-form-field" (click)="dp3.open()" >
-            <input readonly formControlName="doA" matInput [matDatepicker]="dp3">
+        <mat-form-field class="pd-form-field"  >
+            <input readonly formControlName="doA" matInput [matDatepicker]="dp3" [matDatepickerFilter]="myFilter"
+                placeholder="Choose appointment date"
+            >
             <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
             <mat-datepicker #dp3 disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -40,18 +43,15 @@
                 Please provide detailed information of the issue <sup>*</sup>
             </p>
             <mat-form-field class="pd-form-field">
-                <textarea formControlName="message" matInput placeholder="Type Your Issue..."></textarea>
+                <textarea formControlName="message" matInput placeholder="Enter Your Issue..."></textarea>
             </mat-form-field>
         </div>
 
         <div class="form-actions">
-            <button mat-raised-button class="mat-raised-button book-apt" color="primary" [disabled]="appointmentForm.invalid" >Book Now</button>
-            <button mat-raised-button class="mat-raised-button book-apt" color="secondary" (click)="appointmentForm.reset()">Clear All</button>
+            <button mat-raised-button class="mat-raised-button book-apt" color="primary" [disabled]="appointmentForm.invalid">Book Now</button>
+            <button mat-raised-button type="reset"  class="mat-raised-button book-apt" color="secondary">Clear All</button>
 
         </div>
-
-
-
     </form>
     
 </div>

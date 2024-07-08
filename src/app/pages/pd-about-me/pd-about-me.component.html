@@ -1,8 +1,45 @@
-<div>
-    <section class="my-image">
-        <img [src]="'assets/sample-human-image.jpeg'" />
+<div class="about-me-container">
+    <!-- <div class="intro-container">
+        <img src="assets/my_image.jpeg" width="400px" height="400px">
+        <h1 class="intro-desc">
+            <span class="welcome-text">Hey there!</span>I am kavimani, a registered Physiotherapist dedicated to bringing high-quality physiotherapy care directly to your home. Whether you're recovering from surgery, managing a chronic condition, or simply looking to improve your mobility in your own environment, I can create a personalized physiotherapy program to get you back on track.
+        </h1>
+    </div> -->
+
+    <!-- <div>
         <div>
-            
+            <p>Education</p>
+            <p>SriRamachandra Medical College, Chennai</p>
         </div>
-    </section>
+        <div>
+            <p>Licence</p>
+        </div>
+
+    </div> -->
+
+    <div class="education-container">
+        <h1 class="fancy">Education and Certification</h1>
+        <h2>I have completed by Bachelor of Science in Physiotheraphy in SriRamachandra Medical College, Chennai.
+        </h2>
+        <h2>I am also a ABC Certified Physiotherapist</h2>
+    </div>
+
+    <div class="awards-container">
+
+
+        <h1 class="fancy">Awards and Appreciation</h1>
+        <div class="award-cards">
+            <ng-container *ngFor="let item of serviceInfo.myImages">
+                <mat-card>
+                    <mat-card-content>
+                        <img width="400px" height="400px" [src]="item.imageId">
+                    </mat-card-content>
+                    <mat-card-footer>
+                        <p class="img-desc">{{ item.description }}</p>
+                        <p class="img-date">{{ item.dated }}</p>
+                    </mat-card-footer>
+                </mat-card>
+            </ng-container>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,66 @@
+.about-me-container {
+    padding-inline: 40px;
+    margin-block: 40px;
+    .intro-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        position: relative;
+        background-color: white;
+        border-radius: 12px;
+        padding: 12px;
+        .intro-desc {
+            align-self: center;
+            flex: 1;
+            font-size: 1.45em;
+            .welcome-text {
+                color: var(--color-primary);
+                font-size: 32px;
+                margin-right: 12px;
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: -.3rem;
+            z-index: -1;
+            background:  linear-gradient(
+                45deg,
+                #12c2e9,
+                #c471ed,
+                var(--color-primary)
+                );
+            border-radius: inherit;
+            
+        }
+    }
+
+    .award-cards {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .mat-mdc-card {
+            width: 430px;
+            padding-inline: 16px;
+            box-shadow: 0px 0px 10px 1px;
+
+        }
+
+        .mat-mdc-card-content {
+            padding-inline: unset;
+        }
+
+        .mat-mdc-card-footer {
+            .img-desc {
+                color: #2D4D44;
+                padding-top: 16px;
+                font-size: 18px;
+                text-transform: uppercase;
+            }
+
+        }
+    }
+}

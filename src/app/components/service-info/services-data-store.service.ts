@@ -28,5 +28,26 @@ export class ServicesDataStoreService {
     }
   ]
 
+  public myImages = [
+    {
+      header: '',
+      imageId: 'assets/img1.jpeg',
+      description: 'ABC Internship in SCHIEFFELIN INSTITUTE OF HEALTH – RESEARCH & LEPROSY CENTRE, KARIGIRI',
+      dated:'September,2023'
+    },
+    {
+      header: '',
+      imageId: 'assets/img2.jpeg',
+      description: 'Best Intern Certificate',
+      dated:'October,2023'
+    },
+    {
+      header: '',
+      imageId: 'assets/img3.jpeg',
+      description: 'Tapping course completion Certificate',
+      dated:'November,2023'
+    }
+  ]
+
   constructor() { }
 }
