@@ -12,6 +12,8 @@ import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE, Na
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CustomDateAdapter } from 'src/utilities/custom-date-adapter.service';
 import { MY_DATE_FORMATS } from 'src/app/app.constants';
+import { AppointmentService } from './appointment.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -30,10 +32,12 @@ import { MY_DATE_FORMATS } from 'src/app/app.constants';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [
     {provide: DateAdapter, useClass: CustomDateAdapter},
+    AppointmentService
   ],
   templateUrl: './pd-appointment.component.html',
   styleUrls: ['./pd-appointment.component.scss']
@@ -44,7 +48,8 @@ export class PdAppointmentComponent implements OnInit, OnDestroy {
   private formDir!: FormGroupDirective
 
   constructor(
-    private readonly routerModule: ActivatedRoute
+    private readonly routerModule: ActivatedRoute,
+    private readonly appointmentService: AppointmentService
   ){}
   
 
@@ -107,6 +112,24 @@ export class PdAppointmentComponent implements OnInit, OnDestroy {
 
   public onFormSubmit(_event:any){
     console.log(this.appointmentForm.getRawValue());
+    const formData =  this.appointmentForm.getRawValue();
+    const appointmentDate:any = formData.doA;
+    
+    const parsedDate = `${appointmentDate.getDate()}\/${appointmentDate.getMonth()}\/${appointmentDate.getFullYear()}`;
+
+
+
+    
+
+    const params = {
+      emailString: `Name: ${formData.name}\n Phone: ${formData.phone}\n Service required: ${formData.serviceReqd}\n Message: ${formData.message}`,
+      doA: parsedDate
+    }
+
+    console.log(params);
+
+    // this.appointmentService.sendEmail(params);
+
   }
 
   onFormReset(event: Event){
